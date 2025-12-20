@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Birthday To My Jigar ka Tukda 🎉</title>
+  <title>Happy Birthday my jigar ka tukda 🎉</title>
   <style>
     body {
       margin: 0;
@@ -11,8 +11,8 @@
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       overflow: hidden;
       color: white;
-      height: 100vh;
       position: relative;
+      height: 100vh;
     }
     h1 {
       margin-top: 40px;
@@ -54,19 +54,16 @@
       background: #ff1493;
     }
 
-    /* Balloons falling from top */
+    /* Lightweight Balloons */
     .balloon {
       position: absolute;
-      top: -80px; /* start above screen */
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      width: 40px;
-      height: 55px;
-      animation: fall linear infinite;
+      animation: floatUp linear infinite;
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), currentColor);
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      pointer-events: none;
+      pointer-events: none; /* won’t block clicks */
     }
     .balloon::after {
       content: '';
@@ -77,9 +74,10 @@
       background: white;
       opacity: 0.7;
     }
-    @keyframes fall {
-      0% { transform: translateY(-80px) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      50% { transform: translateY(50vh) translateX(10px) rotate(180deg); }
+      100% { transform: translateY(-150px) translateX(-5px) rotate(360deg); }
     }
 
     /* Confetti */
@@ -96,7 +94,7 @@
 </head>
 <body>
 
-  <h1>🎉 Happy Birthday To My Jigar ka Tukda 🎉</h1>
+  <h1>🎉 Happy Birthday my jigar ka tukda 🎉</h1>
   <p class="message" id="typedMessage"></p>
 
   <div id="countdown"></div>
@@ -109,7 +107,7 @@
 
   <button id="surpriseBtn">🎁 Click me for a surprise!</button>
 
-  <audio id="birthdayAudio" controls loop autoplay>
+  <audio id="birthdayAudio" controls>
     <source src="C:\Users\rubee\Downloads\happy-birthday-220024.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -128,7 +126,7 @@
         countdownEl.innerHTML = "🎉 It's Birthday Time! 🎉";
         if(!birthdayReached){
           birthdayReached = true;
-          explodeConfetti(150);
+          explodeConfetti(150); // fewer confetti for smooth performance
           typeMessage("To my Best Friend, My Bonus Sibling, my partner in crime, --- happy birthday! So lucky to have you!! 💖");
         }
         return;
@@ -143,7 +141,7 @@
     }
     setInterval(updateCountdown, 1000);
 
-    // Balloons falling
+    // Balloons
     const colors = ['#FF4C4C','#FFB74C','#FFD54F','#4CAF50','#4DD0E1','#BA68C8','#FF69B4','#FF8C00','#00CED1','#FF1493'];
     function createBalloon(){
       const balloon = document.createElement('div');
@@ -151,13 +149,13 @@
       const size = 25 + Math.random()*30;
       balloon.style.width = size + 'px';
       balloon.style.height = (size*1.3) + 'px';
-      balloon.style.left = Math.random()*100 + 'vw';
       balloon.style.color = colors[Math.floor(Math.random()*colors.length)];
+      balloon.style.left = Math.random()*100 + 'vw';
       balloon.style.animationDuration = 4 + Math.random()*3 + 's';
       document.body.appendChild(balloon);
-      setTimeout(()=> balloon.remove(), 7000);
+      setTimeout(()=> balloon.remove(), 7000); // remove faster for performance
     }
-    setInterval(createBalloon, 350);
+    setInterval(createBalloon, 400);
 
     // Confetti
     function explodeConfetti(amount){
@@ -212,9 +210,11 @@
     document.getElementById("surpriseBtn").addEventListener("click", () => {
       explodeConfetti(200);
       alert("Happy Birthday!! 🎉💖");
+      // Play audio on click if not playing
       const audio = document.getElementById("birthdayAudio");
-      audio.play().catch(() => {});
+      audio.play().catch(() => {}); // ensures audio plays after click
     });
+
   </script>
 </body>
 </html>
