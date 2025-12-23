@@ -218,6 +218,32 @@
   </script>
   <!-- FORCE SHOW IMAGES -->
 <style>
+  .balloon {
+  position: fixed;
+  bottom: -100px;
+  width: 40px;
+  height: 55px;
+  background: red;
+  border-radius: 50%;
+  animation: floatUp 6s linear;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-120vh); }
+}
+
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: yellow;
+  animation: fall 3s linear;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
 img {
   display: block !important;
   opacity: 1 !important;
@@ -263,6 +289,7 @@ img {
 
 </body>
 </html>
+
 
 
 
